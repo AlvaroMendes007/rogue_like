@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var bullet_damage: int = 1
 @export var speed: float = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -15,23 +16,18 @@ var life: int = 0
 var max_life: int = 20
 
 func _process(delta: float) -> void:
+	GameManager.player_position = position
+	
 	get_input()
 	if Input.is_action_just_pressed("attack"):
 		attack()
 	update_attack_cooldown(delta)
-	flip_sprite(input_vector.x)	
+	GameManager.flip_sprite(input_vector.x, $Sprite2D)	
 
 func _physics_process(delta: float) -> void:
 	set_player_velocity()
 	move_and_slide()
 	play_walk_idle_animation()
-
-func flip_sprite(input_vector_x):
-	if input_vector_x > 0:
-		$Sprite2D.flip_h = false
-		pass
-	if input_vector_x < 0:
-		$Sprite2D.flip_h = true
 
 func get_input() -> void:
 	var deadzone = 0.15
@@ -54,6 +50,8 @@ func attack() -> void:
 	
 	attack_cooldown = 0.6
 	is_attacking = true
+	
+	deal_damage()
 
 func play_walk_idle_animation():
 	if not is_reloading:
@@ -68,3 +66,8 @@ func set_player_velocity():
 	if is_attacking:
 		target_velocity *= 0.25
 	velocity = lerp(velocity, target_velocity, 0.05)
+	
+func deal_damage() -> void:
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		enemy.damage(bullet_damage)

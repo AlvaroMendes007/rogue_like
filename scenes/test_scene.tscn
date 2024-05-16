@@ -7,8 +7,9 @@
 position = Vector2(1, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_2hc87")]
-position = Vector2(-18, -18)
+position = Vector2(212, 272)
 motion_mode = 1
 wall_min_slide_angle = 0.113446
 
 [node name="Robot" parent="." instance=ExtResource("2_spt0x")]
+position = Vector2(574, 95)
