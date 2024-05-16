@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0k6eiubt7111"]
+
+[ext_resource type="Texture2D" uid="uid://b1agm01cj8tsi" path="res://addons/Tech Dungeon Roguelite - Asset/Enemies/No Outlines/enemies x3.png" id="1_gisd2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_acstn"]
+radius = 18.0278
+
+[node name="Robot" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gisd2")
+hframes = 9
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -13)
+shape = SubResource("CircleShape2D_acstn")

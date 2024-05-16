@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bii4trrq6u2mq"]
+[gd_scene load_steps=11 format=3 uid="uid://bii4trrq6u2mq"]
 
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_57om4"]
 [ext_resource type="Texture2D" uid="uid://c0saa8cchyf1q" path="res://addons/Tech Dungeon Roguelite - Asset/Players/No Outlines/players blue x3.png" id="1_uu61b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubm4b"]
@@ -55,25 +56,75 @@ tracks/0/keys = {
 "values": [24]
 }
 
+[sub_resource type="Animation" id="Animation_4mhbb"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35]
+}
+
+[sub_resource type="Animation" id="Animation_gbh4e"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2umy4"]
+resource_name = "death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 42, 43, 44, 45, 46]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_etokk"]
 _data = {
 "RESET": SubResource("Animation_14od2"),
+"death": SubResource("Animation_2umy4"),
+"idle": SubResource("Animation_gbh4e"),
 "reload": SubResource("Animation_7eiam"),
+"shoot": SubResource("Animation_4mhbb"),
 "walk": SubResource("Animation_t4vaj")
 }
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_57om4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, -22)
 texture = ExtResource("1_uu61b")
 hframes = 8
 vframes = 13
 frame = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 3)
+position = Vector2(1, 18)
 scale = Vector2(1, 0.64)
 shape = SubResource("CapsuleShape2D_ubm4b")
 
@@ -81,3 +132,4 @@ shape = SubResource("CapsuleShape2D_ubm4b")
 libraries = {
 "": SubResource("AnimationLibrary_etokk")
 }
+autoplay = "idle"
