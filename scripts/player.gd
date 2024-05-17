@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed: float = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var muzzle: Marker2D = $Muzzle
 var bullet_scene = preload("res://scenes/bullet.tscn")       
 
 var input_vector: Vector2 = Vector2(0,0)
@@ -34,6 +35,11 @@ func get_input() -> void:
 	var deadzone = 0.15
 	input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	
+	if input_vector.x > 0:
+		muzzle.position.x = 23
+	elif input_vector.x < 0:
+		muzzle.position.x = -23
+	
 	was_runnning = is_running
 	is_running = not input_vector.is_zero_approx()
 
@@ -64,12 +70,21 @@ func play_walk_idle_animation():
 
 func instantiate_bullet():
 	var bullet_instance = bullet_scene.instantiate()
-	get_parent().add_child(bullet_instance)
+	bullet_instance.position = muzzle.global_position
 	
-	bullet_instance.global_position = $Muzzle.global_position
-	var direction = Vector2(1, 0).rotated(rotation)
+	var direction: Vector2 = input_vector
+	if muzzle.position.x < 0:
+		direction.x -= 1
+	if muzzle.position.x > 0:
+		direction.x += 1
+	
+	if direction.length_squared() > 0:
+		direction = direction.normalized()
+	
 	bullet_instance.rotation = direction.angle()
-	bullet_instance.translate(direction * bullet_instance.speed)
+	
+	get_parent().add_child(bullet_instance)
+
 
 func set_player_velocity():
 	var target_velocity = input_vector * speed * 100.0

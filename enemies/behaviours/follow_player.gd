@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 	var player_position = GameManager.player_position
 	var difference = player_position - enemy.position
 	var input_vector = difference.normalized()
-	enemy.velocity = input_vector * speed * 100
+	enemy.velocity = input_vector * speed * 50
 	enemy.move_and_slide()
 	GameManager.flip_sprite_animated_sprite(input_vector.x, sprite)
 

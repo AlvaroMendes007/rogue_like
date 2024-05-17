@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4j6fdc3fky46"]
+[gd_scene load_steps=4 format=3 uid="uid://b4j6fdc3fky46"]
 
 [ext_resource type="PackedScene" uid="uid://bii4trrq6u2mq" path="res://player/player.tscn" id="1_2hc87"]
+[ext_resource type="Script" path="res://scripts/test_scene.gd" id="1_cqxbq"]
 [ext_resource type="PackedScene" uid="uid://c0k6eiubt7111" path="res://enemies/robot.tscn" id="2_spt0x"]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(1, 0)
+script = ExtResource("1_cqxbq")
 
 [node name="Player" parent="." instance=ExtResource("1_2hc87")]
 position = Vector2(212, 272)
@@ -12,3 +14,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.113446
 
 [node name="Robot" parent="." instance=ExtResource("2_spt0x")]
+position = Vector2(574, 95)
+
+[node name="Robot2" parent="." instance=ExtResource("2_spt0x")]
+position = Vector2(573, 314)
