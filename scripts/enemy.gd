@@ -6,3 +6,6 @@ extends Node
 
 func damage(amount: int) -> void:
 	health -= amount
+	$Label.text = str(health)
+	if health <= 0:
+		queue_free()

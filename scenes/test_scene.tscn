@@ -13,3 +13,6 @@ wall_min_slide_angle = 0.113446
 
 [node name="Robot" parent="." instance=ExtResource("2_spt0x")]
 position = Vector2(574, 95)
+
+[node name="Robot2" parent="." instance=ExtResource("2_spt0x")]
+position = Vector2(573, 314)
