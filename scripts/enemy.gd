@@ -4,7 +4,16 @@ extends CharacterBody2D
 
 @export var health: int = 5
 @onready var area: Area2D = $Area2D
+@onready var timer_attack = $Timer
 var laser_scene = preload("res://scenes/laser.tscn")       
+
+var player = null
+var player_position = Vector2.ZERO
+var player_in_area = false
+
+func _process(delta):
+	if player_in_area:
+		player_position = player.global_position
 
 func damage(amount: int) -> void:
 	health -= amount
@@ -28,4 +37,16 @@ func attack(player_position: Vector2):
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
-		attack(body.global_position)
+		player_in_area = true
+		player = body
+		timer_attack.start()
+
+func _on_area_2d_body_exited(body):
+	if body.is_in_group("player"):
+		player_in_area = false
+		player_position = Vector2.ZERO
+		timer_attack.stop()
+
+func _on_timer_timeout():
+	if player_in_area:
+		attack(player_position)

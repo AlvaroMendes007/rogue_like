@@ -175,6 +175,7 @@ radius = 67.6018
 
 [node name="Robot" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_ab3vy")
+health = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_73dc0")
