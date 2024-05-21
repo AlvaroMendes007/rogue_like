@@ -4,7 +4,6 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var muzzle: Marker2D = $Muzzle
 @onready var timer_attack: Timer = $Timer
-var bullet_scene = preload("res://scenes/bullet.tscn")       
 
 var input_vector: Vector2 = Vector2(0,0)
 var is_running: bool = false
@@ -12,33 +11,46 @@ var was_runnning: bool = false
 var is_attacking: bool = false
 var is_reloading: bool = false
 var attack_cooldown: float = 2.0
+var player_is_death: bool = false
+var player_special_instance
+@export var is_player_special: bool = false
+@export var xp: int = 0
 
 @export_category("ammo")
 var current_ammo: int = 10
 var max_ammo: int = 10
 
 @export_category("life")
-var life: int = 0
-var max_life: int = 20
+@export var life: int = 0
+@export var max_life: int = 20
 
 func _ready():
 	life = max_life
 
 func _process(delta: float) -> void:
-	GameManager.player_position = position
-	
-	get_input()
-	GameManager.flip_sprite(input_vector.x, $Sprite2D)	
+	if !player_is_death:
+		GameManager.player_position = position
+		get_input()
+		GameManager.flip_sprite(input_vector.x, $Sprite2D)
+	if xp >= 100:
+		change_sprite("res://addons/Tech Dungeon Roguelite - Asset/Players/players blue x3.png")
+	#if xp >= 100:
+	if Input.is_action_just_pressed("special_move"):
+		if !is_player_special:
+			instantiate_player_special()
+		else:
+			return_to_normal()
 
 func _physics_process(delta: float) -> void:
-	set_player_velocity()
-	move_and_slide()
-	play_walk_idle_animation()
+	if !player_is_death:
+		set_player_velocity()
+		move_and_slide()
+		play_walk_idle_animation()
 
 func get_input() -> void:
 	var deadzone = 0.15
-	input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	
+	input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	if input_vector.x > 0:
 		muzzle.position.x = 23
 	elif input_vector.x < 0:
@@ -48,20 +60,23 @@ func get_input() -> void:
 	is_running = not input_vector.is_zero_approx()
 
 func attack() -> void:
-	if is_attacking:
+	if is_attacking || player_is_death:
 		return
 		
 	animation_player.play("shoot")
 	
 	attack_cooldown = 0.6
 	is_attacking = true
+	instantiate_bullet(is_player_special) 
 	
-	instantiate_bullet() 
+func die():
+	player_is_death = true
+	animation_player.play("death")
 	
 func damage(amount: int) -> void:
 	life -= amount
 	if life <= 0:
-		print("Game Over")
+		die()
 
 func play_walk_idle_animation():
 	if not is_reloading:
@@ -71,8 +86,36 @@ func play_walk_idle_animation():
 			else:
 				animation_player.play("idle")
 
-func instantiate_bullet():
+func instantiate_player_special():
+	var player_special_scene = load("res://player/player_super.tscn")       
+	
+	queue_free()
+	if player_special_instance:
+		player_special_instance.queue_free()
+	player_special_instance = player_special_scene.instantiate()
+	player_special_instance.position = global_position
+	player_special_instance.life = life
+	is_player_special = true
+	
+	var direction: Vector2 = input_vector.normalized() 
+	get_parent().add_child(player_special_instance)
+	
+func return_to_normal():
+	var player_scene = load("res://player/player.tscn")    
+	
+	queue_free()
+	var player_instance = player_scene.instantiate()
+	player_instance.position = global_position
+	player_instance.life = life
+	is_player_special = false
+	get_parent().add_child(player_instance)
+
+func instantiate_bullet(is_player_special: bool):
+	var bullet_scene = preload("res://scenes/bullet.tscn")       
 	var bullet_instance = bullet_scene.instantiate()
+	if is_player_special:
+		bullet_instance.bullet_damage = 3
+	
 	bullet_instance.position = muzzle.global_position
 	
 	var direction: Vector2 = input_vector.normalized() 
@@ -92,6 +135,10 @@ func instantiate_bullet():
 	get_parent().add_child(bullet_instance)
 	is_attacking = false
 
+func change_sprite(sprite_path: String) -> void:
+	var new_texture = load(sprite_path)
+	$Sprite2D.texture = new_texture
+
 func set_player_velocity():
 	var target_velocity = input_vector * speed * 100.0
 	if is_attacking:
@@ -100,3 +147,8 @@ func set_player_velocity():
 
 func _on_timer_timeout():
 	attack()
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "death":
+		queue_free()

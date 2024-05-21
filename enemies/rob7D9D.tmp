@@ -111,7 +111,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_th404")
 }],
-"loop": false,
+"loop": true,
 "name": &"death",
 "speed": 10.0
 }, {
@@ -128,7 +128,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_htix0")
 }],
-"loop": false,
+"loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -145,7 +145,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fwnqa")
 }],
-"loop": false,
+"loop": true,
 "name": &"shoot",
 "speed": 5.0
 }, {
@@ -180,7 +180,7 @@ script = ExtResource("1_ab3vy")
 sprite_frames = SubResource("SpriteFrames_73dc0")
 animation = &"walk"
 autoplay = "walk"
-frame_progress = 0.49979
+frame_progress = 0.702316
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, -19)

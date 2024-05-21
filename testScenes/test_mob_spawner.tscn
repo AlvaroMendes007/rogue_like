@@ -9,3 +9,4 @@
 position = Vector2(486, 164)
 
 [node name="MobSpawner" parent="." instance=ExtResource("2_71hol")]
+position = Vector2(-6, 7)

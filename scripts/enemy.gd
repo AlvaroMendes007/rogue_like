@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var health: int = 5
 @onready var area: Area2D = $Area2D
 @onready var timer_attack = $Timer
+@onready var animation = $AnimatedSprite2D
 var laser_scene = preload("res://scenes/laser.tscn")       
 
 var player = null
@@ -23,7 +24,7 @@ func damage(amount: int) -> void:
 	tween.set_trans(Tween.TRANS_QUINT)
 	$Label.text = str(health)
 	if health <= 0:
-		queue_free()
+		die()
 
 func attack(player_position: Vector2):
 	var laser_instance = laser_scene.instantiate()
@@ -34,6 +35,9 @@ func attack(player_position: Vector2):
 	laser_instance.rotation = direction.angle()
 	
 	laser_instance.direction = direction
+
+func die() -> void:
+	animation.play("death")
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
@@ -50,3 +54,6 @@ func _on_area_2d_body_exited(body):
 func _on_timer_timeout():
 	if player_in_area:
 		attack(player_position)
+
+func _on_animated_sprite_2d_animation_finished():
+	queue_free()
