@@ -8,6 +8,10 @@ var laser_scene = preload("res://scenes/laser.tscn")
 
 func damage(amount: int) -> void:
 	health -= amount
+	modulate = Color.RED
+	var tween = create_tween().tween_property(self, "modulate", Color.WHITE, 0.3)
+	tween.set_ease(Tween.EASE_IN)
+	tween.set_trans(Tween.TRANS_QUINT)
 	$Label.text = str(health)
 	if health <= 0:
 		queue_free()

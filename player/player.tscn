@@ -138,7 +138,7 @@ autoplay = "idle"
 position = Vector2(23, 7)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 70.0
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
