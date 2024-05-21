@@ -1,6 +1,7 @@
 extends Node
 
-@export var speed:float = 1
+@export var speed:float = 10
+@export var velocity: float = 100
 
 var sprite: AnimatedSprite2D
 var enemy: Enemy
@@ -13,7 +14,7 @@ func _physics_process(delta: float) -> void:
 	var player_position = GameManager.player_position
 	var difference = player_position - enemy.position
 	var input_vector = difference.normalized()
-	enemy.velocity = input_vector * speed * 50
+	enemy.velocity = input_vector * speed * velocity
 	enemy.move_and_slide()
 	GameManager.flip_sprite_animated_sprite(input_vector.x, sprite)
 

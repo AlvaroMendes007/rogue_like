@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://biswp210o28d2"]
+
+[ext_resource type="Script" path="res://scripts/mob_spawner.gd" id="1_rui5r"]
+[ext_resource type="PackedScene" uid="uid://c0k6eiubt7111" path="res://enemies/robot.tscn" id="2_8lgym"]
+
+[sub_resource type="Curve2D" id="Curve2D_sixys"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -34, -94, 0, 0, 0, 0, 1210, -81, 0, 0, 0, 0, 1214, 716, 0, 0, 0, 0, -25, 706, 0, 0, 0, 0, -30, -83, 0, 0, 0, 0, -75, 308)
+}
+point_count = 6
+
+[node name="MobSpawner" type="Node2D"]
+script = ExtResource("1_rui5r")
+creatures = Array[PackedScene]([ExtResource("2_8lgym")])
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_sixys")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+unique_name_in_owner = true
+position = Vector2(-34, -94)
+rotation = 0.0104498
+
+[node name="_Timer_82660" type="Timer" parent="Path2D/PathFollow2D"]
+wait_time = 0.2
+one_shot = true

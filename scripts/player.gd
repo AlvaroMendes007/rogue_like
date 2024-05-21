@@ -12,8 +12,12 @@ var was_runnning: bool = false
 var is_attacking: bool = false
 var is_reloading: bool = false
 var attack_cooldown: float = 2.0
+
+@export_category("ammo")
 var current_ammo: int = 10
 var max_ammo: int = 10
+
+@export_category("life")
 var life: int = 0
 var max_life: int = 20
 
