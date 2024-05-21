@@ -175,6 +175,7 @@ radius = 67.6018
 
 [node name="Robot" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_ab3vy")
+health = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_73dc0")
@@ -188,7 +189,6 @@ shape = SubResource("CircleShape2D_acstn")
 
 [node name="FollowPlayer" type="Node" parent="."]
 script = ExtResource("1_2n2bx")
-speed = 0.0
 
 [node name="Label" type="Label" parent="."]
 offset_left = -10.0
@@ -198,9 +198,6 @@ offset_bottom = -41.0
 text = "5"
 
 [node name="Area2D" type="Area2D" parent="."]
-scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_l5iuo")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

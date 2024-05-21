@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bii4trrq6u2mq"]
+[gd_scene load_steps=12 format=3 uid="uid://bii4trrq6u2mq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_57om4"]
 [ext_resource type="Texture2D" uid="uid://c0saa8cchyf1q" path="res://addons/Tech Dungeon Roguelite - Asset/Players/No Outlines/players blue x3.png" id="1_uu61b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubm4b"]
-radius = 9.0
-height = 50.0
+radius = 12.0
+height = 65.625
 
 [sub_resource type="Animation" id="Animation_14od2"]
 length = 0.001
@@ -114,7 +114,10 @@ _data = {
 "walk": SubResource("Animation_t4vaj")
 }
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfbx"]
+size = Vector2(8, 11)
+
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_57om4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -137,8 +140,6 @@ autoplay = "idle"
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(23, 7)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 70.0
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Muzzle"]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_xhfbx")
