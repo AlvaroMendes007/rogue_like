@@ -17,6 +17,9 @@ var max_ammo: int = 10
 var life: int = 0
 var max_life: int = 20
 
+func _ready():
+	life = max_life
+
 func _process(delta: float) -> void:
 	GameManager.player_position = position
 	
@@ -50,6 +53,11 @@ func attack() -> void:
 	is_attacking = true
 	
 	instantiate_bullet() 
+	
+func damage(amount: int) -> void:
+	life -= amount
+	if life <= 0:
+		print("Game Over")
 
 func play_walk_idle_animation():
 	if not is_reloading:
