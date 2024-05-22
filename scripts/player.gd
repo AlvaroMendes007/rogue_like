@@ -3,7 +3,8 @@ extends CharacterBody2D
 @export var speed: float = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var muzzle: Marker2D = $Muzzle
-@onready var timer_attack: Timer = $Timer
+@onready var timer_attack: Timer = $TimerAttack
+@onready var timer_return: Timer = $TimerReturn
 
 var input_vector: Vector2 = Vector2(0,0)
 var is_running: bool = false
@@ -14,7 +15,8 @@ var attack_cooldown: float = 2.0
 var player_is_death: bool = false
 var player_special_instance
 @export var is_player_special: bool = false
-@export var xp: int = 0
+
+@onready var healthbar: AnimatedSprite2D = $HealthBar
 
 @export_category("ammo")
 var current_ammo: int = 10
@@ -22,24 +24,23 @@ var max_ammo: int = 10
 
 @export_category("life")
 @export var life: int = 0
-@export var max_life: int = 20
+@export var max_life: int = 9
 
 func _ready():
 	life = max_life
 
 func _process(delta: float) -> void:
-	if !player_is_death:
+	healthbar.frame = life
+	
+	if !player_is_death || !is_player_special:
 		GameManager.player_position = position
 		get_input()
 		GameManager.flip_sprite(input_vector.x, $Sprite2D)
-	if xp >= 100:
-		change_sprite("res://addons/Tech Dungeon Roguelite - Asset/Players/players blue x3.png")
-	#if xp >= 100:
-	if Input.is_action_just_pressed("special_move"):
-		if !is_player_special:
-			instantiate_player_special()
-		else:
-			return_to_normal()
+		if GameManager.player_xp >= 26:
+			change_sprite("res://addons/Tech Dungeon Roguelite - Asset/Players/players blue x3.png")
+			if Input.is_action_just_pressed("special_move"):
+				if !is_player_special:
+					instantiate_player_special()
 
 func _physics_process(delta: float) -> void:
 	if !player_is_death:
@@ -99,6 +100,7 @@ func instantiate_player_special():
 	
 	var direction: Vector2 = input_vector.normalized() 
 	get_parent().add_child(player_special_instance)
+	timer_return.start()
 	
 func return_to_normal():
 	var player_scene = load("res://player/player.tscn")    
@@ -152,3 +154,7 @@ func _on_timer_timeout():
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "death":
 		queue_free()
+
+
+func _on_timer_return_timeout():
+	return_to_normal()

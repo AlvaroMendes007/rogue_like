@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bii4trrq6u2mq"]
+[gd_scene load_steps=23 format=3 uid="uid://bii4trrq6u2mq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_57om4"]
 [ext_resource type="Texture2D" uid="uid://c0saa8cchyf1q" path="res://addons/Tech Dungeon Roguelite - Asset/Players/No Outlines/players blue x3.png" id="1_uu61b"]
+[ext_resource type="Texture2D" uid="uid://bnp5cfgyrdrfl" path="res://addons/Tech Dungeon Roguelite - Asset/UI/ui x3.png" id="3_uyd8t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubm4b"]
 radius = 8.0
@@ -114,9 +115,86 @@ _data = {
 "walk": SubResource("Animation_t4vaj")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ch04f"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(96, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5pnc"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(192, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u020o"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(288, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec4xm"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(384, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvo3i"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(480, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdixc"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(576, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a3xt"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(672, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7uxf"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(768, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2m4i"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(864, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcopf"]
+atlas = ExtResource("3_uyd8t")
+region = Rect2(960, 0, 96, 81)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ho14b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ch04f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5pnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u020o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec4xm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvo3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdixc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0a3xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7uxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2m4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcopf")
+}],
+"loop": true,
+"name": &"life",
+"speed": 5.0
+}]
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_57om4")
-max_life = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_uu61b")
@@ -138,9 +216,16 @@ autoplay = "idle"
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(23, 7)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="TimerAttack" type="Timer" parent="."]
 autostart = true
 
+[node name="HealthBar" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -33)
+scale = Vector2(0.84, 0.6)
+sprite_frames = SubResource("SpriteFrames_ho14b")
+animation = &"life"
+
+[node name="TimerReturn" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TimerAttack" to="." method="_on_timer_timeout"]

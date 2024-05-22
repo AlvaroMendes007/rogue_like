@@ -2,6 +2,9 @@ class_name Enemy
 
 extends CharacterBody2D
 
+signal enemy_died(xp_reward: int)
+
+var xp_reward = 10
 @export var health: int = 5
 @onready var area: Area2D = $Area2D
 @onready var timer_attack = $Timer
@@ -37,6 +40,7 @@ func attack(player_position: Vector2):
 	laser_instance.direction = direction
 
 func die() -> void:
+	GameManager.player_xp += 2
 	animation.play("death")
 
 func _on_area_2d_body_entered(body):

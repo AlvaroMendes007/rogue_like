@@ -1,6 +1,7 @@
 extends Node
 
 var player_position: Vector2
+var player_xp: int = 24
 
 func flip_sprite(input_vector_x: float, sprite_2d: Sprite2D):
 	if input_vector_x > 0:

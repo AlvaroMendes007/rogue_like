@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4j6fdc3fky46"]
 
 [ext_resource type="PackedScene" uid="uid://bii4trrq6u2mq" path="res://player/player.tscn" id="1_2hc87"]
-[ext_resource type="PackedScene" uid="uid://o2c2xtkf6eki" path="res://UI/panel_xp.tscn" id="2_orus2"]
+[ext_resource type="PackedScene" uid="uid://brtf4snncb0bp" path="res://UI/xp_animated_sprite.tscn" id="2_5ov3f"]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(1, 0)
@@ -42,4 +42,20 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "pontos: 10"
 
-[node name="PanelXp" parent="CanvasLayer" instance=ExtResource("2_orus2")]
+[node name="PanelXp" type="Panel" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -556.0
+offset_top = -57.0
+offset_right = -516.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(27.76, 1)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="XpAnimatedSprite" parent="CanvasLayer/PanelXp" instance=ExtResource("2_5ov3f")]

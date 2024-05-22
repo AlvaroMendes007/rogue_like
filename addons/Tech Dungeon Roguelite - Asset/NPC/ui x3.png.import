@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnp5cfgyrdrfl"
-path="res://.godot/imported/ui x3.png-2c6056b61f416b2443fc6e585cde0711.ctex"
+uid="uid://dmln16gnxkpq3"
+path="res://.godot/imported/ui x3.png-97bdf3af2d3dd243a3989407136a7e19.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/Tech Dungeon Roguelite - Asset/UI/ui x3.png"
-dest_files=["res://.godot/imported/ui x3.png-2c6056b61f416b2443fc6e585cde0711.ctex"]
+source_file="res://addons/Tech Dungeon Roguelite - Asset/NPC/ui x3.png"
+dest_files=["res://.godot/imported/ui x3.png-97bdf3af2d3dd243a3989407136a7e19.ctex"]
 
 [params]
 
