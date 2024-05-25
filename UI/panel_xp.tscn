@@ -8,14 +8,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -556.0
-offset_top = -57.0
-offset_right = -516.0
-offset_bottom = -17.0
+offset_left = -234.0
+offset_top = -38.0
+offset_right = -234.0
+offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(27.76, 1)
-size_flags_horizontal = 4
-size_flags_vertical = 4
+scale = Vector2(15.3884, 1)
+size_flags_horizontal = 10
+size_flags_vertical = 2
 
 [node name="XpAnimatedSprite" parent="." instance=ExtResource("1_eob4b")]

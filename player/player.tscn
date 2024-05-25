@@ -220,12 +220,32 @@ position = Vector2(23, 7)
 autostart = true
 
 [node name="HealthBar" type="AnimatedSprite2D" parent="."]
+z_index = 20
 position = Vector2(2, -33)
 scale = Vector2(0.84, 0.6)
 sprite_frames = SubResource("SpriteFrames_ho14b")
 animation = &"life"
 
 [node name="TimerReturn" type="Timer" parent="."]
+
+[node name="SpaceBar" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(4, -47)
+scale = Vector2(0.230537, 0.227931)
+texture = ExtResource("3_uyd8t")
+hframes = 6
+vframes = 13
+frame = 72
+
+[node name="Label" type="Label" parent="SpaceBar"]
+offset_left = -152.1
+offset_top = -5.74999
+offset_right = -41.1
+offset_bottom = 17.25
+scale = Vector2(2.44341, 1.82646)
+text = "Space"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="TimerAttack" to="." method="_on_timer_timeout"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwli734v4cwd2"]
+
+[ext_resource type="PackedScene" uid="uid://o2c2xtkf6eki" path="res://UI/panel_xp.tscn" id="1_0ywcf"]
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_lpjqq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y348f"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_dsj3e"]
+font_size = 40
+
+[node name="CanvasLayerUI" type="CanvasLayer"]
+script = ExtResource("1_lpjqq")
+
+[node name="PanelXp" parent="." instance=ExtResource("1_0ywcf")]
+anchors_preset = 4
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 1.0
+offset_top = 314.0
+offset_right = 1.0
+offset_bottom = 314.0
+grow_horizontal = 1
+grow_vertical = 2
+rotation = 4.71016
+
+[node name="LabelPoints" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_top = 10.0
+offset_right = -62.0
+offset_bottom = 33.0
+grow_horizontal = 0
+text = "999"
+label_settings = SubResource("LabelSettings_y348f")
+
+[node name="LabelTimer" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 12.0
+offset_right = 20.0
+offset_bottom = 35.0
+grow_horizontal = 2
+text = "99:99"
+label_settings = SubResource("LabelSettings_dsj3e")
+
+[node name="LabelAmmo" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -137.0
+offset_top = -74.0
+offset_right = -29.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "99/99"
+label_settings = SubResource("LabelSettings_dsj3e")

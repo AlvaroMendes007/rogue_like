@@ -27,6 +27,8 @@ func damage(amount: int) -> void:
 	tween.set_trans(Tween.TRANS_QUINT)
 	$Label.text = str(health)
 	if health <= 0:
+		if health < 0:
+			$Label.text = "0"
 		die()
 
 func attack(player_position: Vector2):
@@ -42,6 +44,7 @@ func attack(player_position: Vector2):
 func die() -> void:
 	GameManager.player_xp += 2
 	animation.play("death")
+	GameManager.defeatEnemy()
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):

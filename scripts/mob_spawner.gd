@@ -1,3 +1,5 @@
+class_name MobSpawner
+
 extends Node2D
 
 @export var creatures: Array[PackedScene]
@@ -7,6 +9,7 @@ extends Node2D
 var cooldown: float = 0.0
 
 func _process(delta):
+	if GameManager.is_game_over: return
 	cooldown -= delta
 	if cooldown > 0: return
 	
@@ -16,6 +19,12 @@ func _process(delta):
 	var index = randi_range(0, creatures.size() -1)
 	var creature_scene = creatures[index]
 	var point = get_point()
+	var world_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = point
+	var result = world_state.intersect_point(parameters, 1)
+	
+	if not result.is_empty(): return
 	var creature = creature_scene.instantiate()
 	creature.global_position = get_point()
 	get_parent().add_child(creature)

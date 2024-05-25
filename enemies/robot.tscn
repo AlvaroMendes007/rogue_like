@@ -199,7 +199,7 @@ offset_bottom = -41.0
 text = "5"
 
 [node name="Area2D" type="Area2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(3.08717, 3.08)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_l5iuo")

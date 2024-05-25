@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bii4trrq6u2mq" path="res://player/player.tscn" id="1_abmn1"]
 [ext_resource type="PackedScene" uid="uid://biswp210o28d2" path="res://systems/mob_spawner.tscn" id="2_71hol"]
-[ext_resource type="PackedScene" uid="uid://o2c2xtkf6eki" path="res://UI/panel_xp.tscn" id="3_u55sn"]
+[ext_resource type="PackedScene" uid="uid://dwli734v4cwd2" path="res://UI/game_ui.tscn" id="3_5yqfe"]
 
 [node name="test_mob_spawner" type="Node2D"]
 
@@ -11,13 +11,6 @@ position = Vector2(486, 164)
 
 [node name="MobSpawner" parent="." instance=ExtResource("2_71hol")]
 position = Vector2(-6, 7)
-mobs_per_minute = 6.0
+mobs_per_minute = 15.0
 
-[node name="PanelXp" parent="." instance=ExtResource("3_u55sn")]
-anchors_preset = 12
-anchor_left = 0.0
-anchor_right = 1.0
-offset_left = 29.0
-offset_top = 595.0
-offset_right = 29.0
-offset_bottom = 595.0
+[node name="CanvasLayerUI" parent="." instance=ExtResource("3_5yqfe")]

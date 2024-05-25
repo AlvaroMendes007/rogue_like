@@ -196,7 +196,6 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_fhigu")
-is_player_special = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_eav0h")
@@ -213,7 +212,7 @@ shape = SubResource("CapsuleShape2D_ubm4b")
 libraries = {
 "": SubResource("AnimationLibrary_etokk")
 }
-autoplay = "idle"
+autoplay = "walk"
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(23, 7)
@@ -223,6 +222,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="HealthBar" type="AnimatedSprite2D" parent="."]
+z_index = 20
 position = Vector2(2, -33)
 scale = Vector2(0.84, 0.6)
 sprite_frames = SubResource("SpriteFrames_kms6o")
